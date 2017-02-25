@@ -36,7 +36,7 @@
 <h3>Air Quality Index(AQI)</h3>
 <p>Air Quality Index(AQI) is an index for reporting daily air quality. It tells you how clean or polluted your air is, and what associated health effects might be a concern for you.<a href = "https://airnow.gov/index.cfm?action=aqibasics.aqi">(click here for more information)</a></p>
 
-          
+<p>Map </p>      
 <div  id='map'  style='height:380px;'  />  
 <link  rel="stylesheet"  href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css"  />  
 <script  src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>  
@@ -53,7 +53,8 @@
       var  map  =  L.map('map').setView([27.7097, 85.3219],  13);  
       map.addLayer(osmLayer).addLayer(waqiLayer);  
 </script>
-<br>
+         
+ <p> AQI </p>  
 <div id="Air Quality Feed">
           <script  type="text/javascript"  charset="utf-8">  
     (function(w,d,t,f){  w[f]=w[f]||function(c,k,n){s=w[f],k=s['k']=(s['k']||(k?('&k='+k):''));s['c']=  
@@ -71,7 +72,8 @@ container:"city-aqi-container",
 city:"kathmandu"  });  
 </script>
           </div>
- <div id ="form">
+ 
+        <div id ="form">
           <h3> Share your Health symptoms experinced </h3>
 <p>Please share symptoms experinced and help us gather evidence to advocate for Good Air Quality in Kathmandu.<br>
   <a herf ="https://ee.kobotoolbox.org/::YzlS">(if form doesn't load click here)</a></p>
