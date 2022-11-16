@@ -1,0 +1,121 @@
+body {
+    font-family: "Montserrat", sans-serif;
+    // background: #136a8a; /* fallback for old browsers */
+    // background: -webkit-linear-gradient(to bottom, #267871, #136a8a); /* Chrome 10-25, Safari 5.1-6 */
+    // background: linear-gradient(
+    //     to bottom,
+    //     #267871,
+    //     #136a8a
+    // ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: url(../img/bg.jpg) no-repeat bottom right;
+    background-size: cover;
+
+    min-height: 100vh;
+    margin: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.justify-content-between {
+    justify-content: space-between !important;
+}
+
+.main-container {
+    width: 90%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding-top: 24px;
+}
+
+.form-wrapper {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+}
+
+.btn {
+    background-color: #4caf50; /* Green */
+    border: none;
+    color: white;
+    padding: 8px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.upload-csv {
+    margin-bottom: 20px;
+
+    .upload-label {
+        margin-right: 10px;
+        font-weight: 600;
+    }
+
+    .input-grp {
+        label {
+            display: inline-block;
+            background-color: #257772;
+            color: white;
+            padding: 8px 16px;
+            font-family: sans-serif;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    }
+}
+
+.action-btns {
+    margin-bottom: 20px;
+}
+
+.printable-area {
+    border-top: 2px solid #d7d7d7;
+    border-bottom: 2px solid #d7d7d7;
+    
+    .content-block {
+        padding: 20px;
+    
+        .color-circle {
+            display: flex;
+    
+            span {
+                display: inline-block;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                margin-right: 20px;
+            }
+    
+            .item-desc {
+                flex: 1;
+            }
+        }
+    }
+
+    &.double-columns{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 0px;
+
+        .content-block{
+            width: 49%;
+            margin-bottom: 20px;
+            // border: 1px solid rgb(215, 215, 215);
+            // &:nth-of-type(odd){
+            // }
+        }
+    }
+}
+
