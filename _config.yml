@@ -51,30 +51,11 @@ about_content: | # this will include new lines to allow paragraphs
   I am a data enthusiast with an educational background in Public Health and Medical Informatics. I have extensive experience in data analytics, digital health, and biomedical and health research. I am looking for a role that uses my skills and develops them further.
 
 content:
-  - title: Projects # Title for the section
-    layout: list # Type of content section (list/text)
-    content:
-      - layout: top-middle
-        title: Super awesome project
-        link: github.com/sproogen
-        # link_text: Project Website
-        additional_links:
-          - title:  sproogen/modern-resume-theme
-            icon: fab fa-github
-            url: github.com/sproogen/modern-resume-theme
-          # - title:  Github page for project (eg. sproogen/modern-resume-theme)
-          #   icon: fab fa-github
-          #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
-        quote: >
-          This is probably one of the greatest apps ever created, if you don't agree you're probably wrong.
-        description: | # this will include new lines to allow paragraphs
-          I started this project as a way if learning <mark>React</mark> and it has since grown into a fully fledged app. I have learned many skills through this and been I'm very proud of having this in my portfolio. If you don't have a project as awesome as this I would advise you make one.
-
   - title: Experience # Title for the section
     layout: list # Type of content section (list/text)
     content:
       - layout: left
-        title: Dhulikhel Hospital - Kathmandu University Hospital
+        title: Dhulikhel Hospital - Kathmandu University Hospital, Nepal
         link: dhulikhelhospital.org
         # link_text: boringcompany.com
         sub_title: Team Lead, Divison of Health Informatics
@@ -82,10 +63,14 @@ content:
         quote: >
           Enabling data use, data driven solutions and tools in Health and related field. 
         description: | # this will include new lines to allow paragraphs
-            *Academic*: Contributed to develop Health Informatics as an academic area through curriculum development, workshops and developed short courses for public health students.  
-            *Research*: Designed research, identified appropriate cohort and participated in scientific publications. 
+            *Academic*: Contributed to develop Health Informatics as an academic area through curriculum development, workshops and developed short courses for public health students.
+
+            *Research*: Designed research, identified appropriate cohort and participated in scientific publications.
+
             *Data Science*: Developed pipelines for handling data from EMRs, mobile sensors and open data platforms and convert/map into standards (OMOP CDM, FHIR, ontologies etc.). Data analysis and development of machine learning models for multiple research projects. 
+
             *Major Projects accomplished*: 	     
+            - Sustainable Development in Bioinformatics to Support Public Health as co-investigator
             - MiRA (mHealth integrated model of hypertension, diabetes, and antenatal care in primary care settings- mHealth app development and randomized control trail) as Technical Lead.
             - Development and Testing of a Mobile Health Application for Management of Gestational Diabetes as co-investigator.
             - Low resource “Telephone based Remote Monitoring of COVID-19 cases at Home” for Dhulikhel Hospital, Karnali State Government and Bagmati State Government as a technical lead 
@@ -102,6 +87,54 @@ content:
           I learned about biomedical ontologies, knowledge graphs,  data processing and analysis methods in medicine and biomedical area, Application of Machine learning in Health to mention few. 
 
           I spent a lot of my free time as a committee member of the *Harvard Mountaineering Club* taking on roles such as *Trip Secretary* and *Vice-President*.
+      - layout: left 
+        title: Purbanchal University, Asian College For Advance Studies
+        caption: 2005 - 2008 
+        sub_title : Bachelor's of Public Health
+        description: | 
+          Epidemiology, Public Health research, biostats got my full attention. I developed my organizational skills, communication skills and management skills. 
+
+  - title: Major Research and Projects # Title for the section
+    layout: list # Type of content section (list/text)
+    content:
+      - layout: top-middle
+        title: Development and Testing of a Mobile Health Application for Management of Gestational Diabetes
+        link: https://www.dphcp.org/ongoing-research/development-and-testing-of-mobile-health-application-for-management-of-gestational-diabetes-mhealth-for-gdm/
+        # link_text: Project Website
+        #additional_links:
+          #- title:  sproogen/modern-resume-theme
+          #  icon: fab fa-github
+          #  url: github.com/sproogen/modern-resume-theme
+          # - title:  Github page for project (eg. sproogen/modern-resume-theme)
+          #   icon: fab fa-github
+          #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
+        quote: >
+          Develop and test a new mHealth app that supports self-management and treatment for GDM patients.
+        description: | # this will include new lines to allow paragraphs
+           **Partner(s):** Rutgers University (Funding : NIH R21 Grant) 
+           **My Role :** Co-investigator <br>
+           **Achievements:** Developed technical documentation and specifications for app (data models, architectures etc.), Lead and monitored the app development process, developed data extration and analysis pipelines, and developed calorie and step count algorithm. 
+
+      - layout: top-middle 
+        title: Sustainable Development in Bioinformatics to Support Public Health
+        link: https://www.dphcp.org/ongoing-research/sustainable-development-in-bioinformatics-to-support-public-health/ 
+        quote: >
+          Develop standardized reporting formats for the communication of AMR information
+        description: | 
+         **Partner(s):** Public Health Alliance for Genomic Epidemiology, South Africa (Public Health Alliance for Genomic Epidemiology (PHA4GE)) 
+         **My Role :** Co-investigator <br>
+         **Achievements:** Adoption of PHA4GE tools for Nepal, Development of traning materials
+
+      - layout: top-middle 
+        title: MiRA(mHealth integrated model of hypertension, diabetes and antenatal care in primary care settings- mHealth app development and randomized control trail )
+        quote: >
+          Develop mHealth application to support Community Health Workers(CHW) with decision support system.
+        description: |
+         **Partner(s):** London School of Hygiene and Tropical Medicine, United Kingdom and Public Health Foundation of India (PHFI), India  
+         **My Role :** Technical Lead <br>
+         **Achievements:** developed mHealth architecture incorporating standards (FHIR) and extracted Decision Support Rules from clinical guidelines and prepared demo in Python.      
+
+           
 
   - title: A Little More About Me
     layout: text
