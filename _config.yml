@@ -60,8 +60,6 @@ content:
         # link_text: boringcompany.com
         sub_title: Team Lead, Divison of Health Informatics
         caption: Aug 2017 - Mar 2022
-        quote: >
-          Enabling data use, data driven solutions and tools in Health and related field. 
         description: | # this will include new lines to allow paragraphs
             *Academic*: Contributed to develop Health Informatics as an academic area through curriculum development, workshops and developed short courses for public health students.
 
@@ -69,12 +67,23 @@ content:
 
             *Data Science*: Developed pipelines for handling data from EMRs, mobile sensors and open data platforms and convert/map into standards (OMOP CDM, FHIR, ontologies etc.). Data analysis and development of machine learning models for multiple research projects. 
 
-            *Major Projects accomplished*: 	     
+            *Major Projects*: 	     
             - Sustainable Development in Bioinformatics to Support Public Health as co-investigator
             - MiRA (mHealth integrated model of hypertension, diabetes, and antenatal care in primary care settings- mHealth app development and randomized control trail) as Technical Lead.
             - Development and Testing of a Mobile Health Application for Management of Gestational Diabetes as co-investigator.
             - Low resource “Telephone based Remote Monitoring of COVID-19 cases at Home” for Dhulikhel Hospital, Karnali State Government and Bagmati State Government as a technical lead 
-
+      - layout : left 
+        title : JW LEE Center for Global Medicine, Seoul National Univeristy, South Korea
+        link: https://jwleecenter.org/ 
+        sub_title: Researcher
+        caption: Apr 2019 - Feb 2020 
+        description: | 
+            Conceptualized and designed research, prepared research protocols, and electronic data capture tools for multi-country research projects. Built data extraction scripts from environmental sensors, data management pipelines and data analysis in R and Python. Published article in peer-reviewed Journal.
+            *Major Research Projects:* 
+             - Ultrasound capacity building at Nepal and Vietnam.
+             - Indoor air pollution and women’s health in Nepal.
+             - Tele-health for infectious disease.
+ 
 
   - title: Education # Title for the section
     layout: list # Type of content section (list/text)
