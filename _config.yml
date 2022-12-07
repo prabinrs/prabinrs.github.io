@@ -1,0 +1,127 @@
+# Site
+repository: sproogen/resume-theme
+favicon: images/favicon.ico
+
+# Content configuration version
+version: 2
+
+# Personal info
+name: Prabin Raj Shakya
+title: Data Science | Health Informatics | Public Health
+email: prabinrs@gmail.com
+website: prabinrs.github.io
+
+# Dark Mode (true/false/never)
+darkmode: false
+
+# Social links
+twitter_username: prabincha
+github_username:  prabinrs
+# stackoverflow_username: "00000001"
+# dribbble_username: jekyll
+# facebook_username: jekyll
+# flickr_username: jekyll
+instagram_username: prabinrs
+linkedin_username: prabin-shakya-18390a43
+# xing_username: jekyll
+# pinterest_username: jekyll
+# youtube_username: globalmtb
+# googleplus_username: +jekyll
+# orcid_username: 0000-0000-0000-0000
+
+# Additional icon links
+additional_links:
+- title: itsgoingto.be
+  icon: fas fa-globe
+  url: https://www.itsgoingto.be
+# - title: another link
+#   icon: font awesome brand icon name (eg. fab fa-twitter) (https://fontawesome.com/icons?d=gallery&m=free)
+#   url: Link url (eg. https://google.com)
+
+# Google Analytics and Tag Manager
+# Using more than one of these may cause issues with reporting
+# gtm: "GTM-0000000"
+# gtag: "UA-00000000-0"
+# google_analytics: "UA-00000000-0"
+
+# About Section
+# about_title: About Me
+about_profile_image: images/profile.jpg
+about_content: | # this will include new lines to allow paragraphs
+  I am a data enthusiast with an educational background in Public Health and Medical Informatics. I have extensive experience in data analytics, digital health, and biomedical and health research. I am looking for a role that uses my skills and develops them further.
+
+content:
+  - title: Projects # Title for the section
+    layout: list # Type of content section (list/text)
+    content:
+      - layout: top-middle
+        title: Super awesome project
+        link: github.com/sproogen
+        # link_text: Project Website
+        additional_links:
+          - title:  sproogen/modern-resume-theme
+            icon: fab fa-github
+            url: github.com/sproogen/modern-resume-theme
+          # - title:  Github page for project (eg. sproogen/modern-resume-theme)
+          #   icon: fab fa-github
+          #   url: Link to project (eg. sproogen.github.io/modern-resume-theme)
+        quote: >
+          This is probably one of the greatest apps ever created, if you don't agree you're probably wrong.
+        description: | # this will include new lines to allow paragraphs
+          I started this project as a way if learning <mark>React</mark> and it has since grown into a fully fledged app. I have learned many skills through this and been I'm very proud of having this in my portfolio. If you don't have a project as awesome as this I would advise you make one.
+
+  - title: Experience # Title for the section
+    layout: list # Type of content section (list/text)
+    content:
+      - layout: left
+        title: Dhulikhel Hospital - Kathmandu University Hospital
+        link: dhulikhelhospital.org
+        # link_text: boringcompany.com
+        sub_title: Team Lead, Divison of Health Informatics
+        caption: Aug 2017 - Mar 2022
+        quote: >
+          Enabling data use, data driven solutions and tools in Health and related field. 
+        description: | # this will include new lines to allow paragraphs
+            *Academic*: Contributed to develop Health Informatics as an academic area through curriculum development, workshops and developed short courses for public health students.  
+            *Research*: Designed research, identified appropriate cohort and participated in scientific publications. 
+            *Data Science*: Developed pipelines for handling data from EMRs, mobile sensors and open data platforms and convert/map into standards (OMOP CDM, FHIR, ontologies etc.). Data analysis and development of machine learning models for multiple research projects. 
+            *Major Projects accomplished*: 	     
+            - MiRA (mHealth integrated model of hypertension, diabetes, and antenatal care in primary care settings- mHealth app development and randomized control trail) as Technical Lead.
+            - Development and Testing of a Mobile Health Application for Management of Gestational Diabetes as co-investigator.
+            - Low resource “Telephone based Remote Monitoring of COVID-19 cases at Home” for Dhulikhel Hospital, Karnali State Government and Bagmati State Government as a technical lead 
+
+
+  - title: Education # Title for the section
+    layout: list # Type of content section (list/text)
+    content:
+      - layout: left
+        title: Seoul National University, South Korea
+        caption: 2014 - 2016
+        sub_title: Master of Science in Medical Informatics
+        description: | # this will include new lines to allow paragraphs
+          I learned about biomedical ontologies, knowledge graphs,  data processing and analysis methods in medicine and biomedical area, Application of Machine learning in Health to mention few. 
+
+          I spent a lot of my free time as a committee member of the *Harvard Mountaineering Club* taking on roles such as *Trip Secretary* and *Vice-President*.
+
+  - title: A Little More About Me
+    layout: text
+    content: | # this will include new lines to allow paragraphs
+      Alongside my interests in networks and software engineering some of my other interests and hobbies are:
+      - Cycling
+      - Hiking
+      - Coffee hunting :D 
+
+
+# Footer
+footer_show_references: true
+# references_title: References on request (Override references text)
+
+# Build settings
+remote_theme: sproogen/resume-theme
+
+sass:
+  sass_dir: _sass
+  style: compressed
+
+plugins:
+ - jekyll-seo-tag
