@@ -72,6 +72,8 @@ content:
             - MiRA (mHealth integrated model of hypertension, diabetes, and antenatal care in primary care settings- mHealth app development and randomized control trail) as Technical Lead.
             - Development and Testing of a Mobile Health Application for Management of Gestational Diabetes as co-investigator.
             - Low resource “Telephone based Remote Monitoring of COVID-19 cases at Home” for Dhulikhel Hospital, Karnali State Government and Bagmati State Government as a technical lead 
+
+
       - layout : left 
         title : JW LEE Center for Global Medicine, Seoul National Univeristy, South Korea
         link: https://jwleecenter.org/ 
@@ -103,6 +105,7 @@ content:
         description: | 
           Epidemiology, Public Health research, biostats got my full attention. I developed my organizational skills, communication skills and management skills. 
 
+
   - title: Major Research and Projects # Title for the section
     layout: list # Type of content section (list/text)
     content:
@@ -120,9 +123,10 @@ content:
         quote: >
           Develop and test a new mHealth app that supports self-management and treatment for GDM patients.
         description: | # this will include new lines to allow paragraphs
-           **Partner(s):** Rutgers University (Funding : NIH R21 Grant) 
+           **Partner(s):** Rutgers University (Funding : NIH R21 Grant) <br>
            **My Role :** Co-investigator <br>
            **Achievements:** Developed technical documentation and specifications for app (data models, architectures etc.), Lead and monitored the app development process, developed data extration and analysis pipelines, and developed calorie and step count algorithm. 
+
 
       - layout: top-middle 
         title: Sustainable Development in Bioinformatics to Support Public Health
@@ -130,21 +134,21 @@ content:
         quote: >
           Develop standardized reporting formats for the communication of AMR information
         description: | 
-         **Partner(s):** Public Health Alliance for Genomic Epidemiology, South Africa (Public Health Alliance for Genomic Epidemiology (PHA4GE)) 
+         **Partner(s):** Public Health Alliance for Genomic Epidemiology, South Africa (Public Health Alliance for Genomic Epidemiology (PHA4GE)) <br>
          **My Role :** Co-investigator <br>
          **Achievements:** Adoption of PHA4GE tools for Nepal, Development of traning materials
+
 
       - layout: top-middle 
         title: MiRA(mHealth integrated model of hypertension, diabetes and antenatal care in primary care settings- mHealth app development and randomized control trail )
         quote: >
           Develop mHealth application to support Community Health Workers(CHW) with decision support system.
         description: |
-         **Partner(s):** London School of Hygiene and Tropical Medicine, United Kingdom and Public Health Foundation of India (PHFI), India  
+         **Partner(s):** London School of Hygiene and Tropical Medicine, United Kingdom and Public Health Foundation of India (PHFI), India <br> 
          **My Role :** Technical Lead <br>
          **Achievements:** developed mHealth architecture incorporating standards (FHIR) and extracted Decision Support Rules from clinical guidelines and prepared demo in Python.      
 
            
-
   - title: A Little More About Me
     layout: text
     content: | # this will include new lines to allow paragraphs
