@@ -152,7 +152,7 @@ content:
   - title: A Little More About Me
     layout: text
     content: | # this will include new lines to allow paragraphs
-      Alongside my interests in networks and software engineering some of my other interests and hobbies are:
+      Alongside my interests in public health, informatics and data science, some of my other interests and hobbies are:
       - Cycling
       - Hiking
       - Coffee hunting :D 
