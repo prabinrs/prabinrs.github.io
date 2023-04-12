@@ -60,7 +60,7 @@ content:
         sub_title: Research Scientist
         caption: Aug 2021 - 
         description: |
-          Conceptualized and Developed a research project “Machine Learning based Cervical Cancer Screening tool”. Designed and created data capture tools to support the project. Provided training on OMOP CDM and OHDSI tools for personal level prediction to fellow researchers. Developed an ETL pipeline using R and SQL to normalize survey data. 
+            Conceptualized and Developed a research project “Machine Learning based Cervical Cancer Screening tool”. Designed and created data capture tools to support the project. Provided training on OMOP CDM and OHDSI tools for personal level prediction to fellow researchers. Developed an ETL pipeline using R and SQL to normalize survey data. 
           
       - layout: left
         title: Dhulikhel Hospital - Kathmandu University Hospital, Nepal
@@ -72,7 +72,7 @@ content:
             *Academic*: Contributed to develop Health Informatics as an academic area through curriculum development, workshops and developed short courses for public health students.
 
             *Research*: Designed research, identified appropriate cohort and participated in scientific publications.
-wi
+            
             *Data Science*: Developed pipelines for handling data from EMRs, mobile sensors and open data platforms and convert/map into standards (OMOP CDM, FHIR, ontologies etc.). Data analysis and development of machine learning models for multiple research projects. 
 
             *Major Projects*: 	     
