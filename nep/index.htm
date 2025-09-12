@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nepal's Political Transformation: 1990-2025</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6C5B7B;
+            font-size: 2rem;
+            margin: 0.5rem 0;
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+            padding-left: 2.5rem;
+            border-left: 4px solid #C06C84;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -11px;
+            top: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #F8B195;
+            border: 4px solid #C06C84;
+            border-radius: 50%;
+        }
+        .stat-card {
+            background-color: #355C7D;
+            color: white;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="container mx-auto px-6 py-4">
+            <h1 class="text-3xl font-bold text-center text-[#355C7D]">Nepal's Turbulent Path to Democracy</h1>
+            <p class="text-center text-lg text-gray-600 mt-1">A 35-Year Political Saga: 1990 - 2025</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-[#355C7D] mb-4">From Kingdom to Republic: A Nation in Flux</h2>
+                <p class="text-gray-700">Since 1990, Nepal has undergone a profound and often volatile transformation, moving from an absolute monarchy to a federal democratic republic. This journey has been marked by popular movements, a decade-long civil war, multiple constitutional rewrites, and persistent political instability. The nation's quest for a stable, inclusive, and accountable governance system continues to evolve, reflecting deep-seated societal tensions and a public yearning for progress and reform.</p>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-[#6C5B7B] mb-4">1990: The First People's Movement</h3>
+                 <p class="text-gray-600 mb-4">The 'Jana Andolan' ushered in a new era, forcing the monarchy to relinquish absolute power and establishing a multiparty democracy under a constitutional monarchy.</p>
+                <div class="flex flex-col items-center">
+                    <div class="bg-gray-100 p-3 rounded-lg text-center w-full">
+                        <h4 class="font-bold">Absolute Monarchy</h4>
+                        <p class="text-sm">(Pre-1990)</p>
+                    </div>
+                    <div class="flow-arrow">&#11015;</div>
+                    <div class="bg-[#F8B195] p-3 rounded-lg text-center w-full text-white shadow">
+                        <h4 class="font-bold">'Jana Andolan'</h4>
+                        <p class="text-sm">(Popular Uprising)</p>
+                    </div>
+                     <div class="flow-arrow">&#11015;</div>
+                    <div class="bg-[#00B8A9] p-3 rounded-lg text-center w-full text-white shadow">
+                        <h4 class="font-bold">Constitutional Monarchy</h4>
+                        <p class="text-sm">(Post-1990)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stat-card rounded-lg shadow-md p-6 flex flex-col justify-center items-center text-center">
+                 <h3 class="text-xl font-semibold mb-2">The Decade of Conflict (1996-2006)</h3>
+                <p class="mb-4">A brutal civil war between Maoist insurgents and the state had a devastating human cost, fundamentally altering the political landscape.</p>
+                <p class="text-6xl font-black text-[#F67280]">17,000+</p>
+                <p class="text-2xl font-semibold mt-2">Lives Lost</p>
+            </div>
+
+             <div class="bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-[#6C5B7B] mb-4">2008: A Republic is Born</h3>
+                <p class="text-gray-600">Following the civil war and another popular movement, the newly elected Constituent Assembly took a historic step, abolishing the 240-year-old monarchy and declaring Nepal a federal democratic republic.</p>
+                 <div class="mt-6 flex items-center justify-center bg-[#C06C84] text-white p-4 rounded-lg shadow-lg">
+                    <span class="text-4xl mr-4">&#128737;</span>
+                    <div>
+                        <h4 class="text-2xl font-bold">Monarchy Abolished</h4>
+                        <p>Nepal becomes the world's youngest republic.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-center text-[#355C7D] mb-2">The Shifting Structure of Governance</h3>
+                <p class="text-gray-600 text-center mb-6">Nepal's governance model has changed dramatically with each new constitution. This chart illustrates the distribution of key executive and legislative power across three pivotal constitutional moments, showing the decline of monarchical power and the rise of republican, parliamentary institutions.</p>
+                <div class="chart-container">
+                    <canvas id="governanceChart"></canvas>
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                 <h3 class="text-xl font-semibold text-center text-[#355C7D] mb-6">A Timeline of Constitutional Change</h3>
+                <div class="relative">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-lg text-[#C06C84]">1990: Constitution of the Kingdom of Nepal</h4>
+                        <p class="text-gray-600">Established a constitutional monarchy and multiparty parliamentary system, but retained significant royal powers.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-lg text-[#C06C84]">2007: Interim Constitution</h4>
+                        <p class="text-gray-600">Drafted after the civil war, this constitution formally stripped the king of his powers, declared Nepal a secular state, and paved the way for the abolition of the monarchy.</p>
+                    </div>
+                     <div class="timeline-item border-l-transparent">
+                        <div class="timeline-dot"></div>
+                        <h4 class="font-bold text-lg text-[#C06C84]">2015: Constitution of Nepal</h4>
+                        <p class="text-gray-600">After years of debate, this constitution was promulgated, establishing Nepal as a federal democratic republic with three tiers of government: federal, provincial, and local.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h3 class="text-xl font-semibold text-center text-[#355C7D] mb-2">The Rise of Independent Voices</h3>
+                <p class="text-gray-600 text-center mb-6">Widespread disillusionment with established political parties has created an opening for independent candidates. The 2022 Kathmandu mayoral election was a watershed moment, where rapper and engineer Balen Shah secured a landslide victory against candidates from the two largest parties, signaling a major shift in urban voter sentiment.</p>
+                <div class="chart-container">
+                    <canvas id="mayorVoteChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-md p-6 flex flex-col justify-center">
+                 <h3 class="text-xl font-semibold text-[#6C5B7B] mb-4">2025: The 'Gen Z' Upheaval</h3>
+                <p class="text-gray-600">Fictional projections based on recent trends suggest a 2025 scenario where youth-led protests, sparked by issues like corruption and restrictions on freedom, could cause another major political shakeup. This highlights the deep-seated frustration with the political establishment and the demand for a new generation of leadership.</p>
+            </div>
+
+            <div class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-bold text-center text-[#355C7D] mb-4">Balen Shah: Symbol, Not Sovereign</h2>
+                <p class="text-gray-700 text-center mb-6">While Balen Shah's victory made him a powerful symbol of change and the hope of a generation, he is unlikely to lead a national revolution in 2025. His influence is a catalyst, but several factors constrain his ability to take national power.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4">
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-[#F67280]">
+                        <h4 class="font-bold text-lg">Lack of a National Party</h4>
+                        <p class="text-gray-600">Governing a city as an independent is different from leading a country. Without a party structure, mobilizing support, contesting national elections, and forming a government is nearly impossible.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-[#F8B195]">
+                        <h4 class="font-bold text-lg">Focus on Urban Governance</h4>
+                        <p class="text-gray-600">His mandate and experience are in urban management for Kathmandu. The complex issues of national policy, foreign relations, and rural development require a different skill set and political base.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-[#00B8A9]">
+                        <h4 class="font-bold text-lg">A Movement Larger Than One</h4>
+                        <p class="text-gray-600">The youth-led protests are anti-establishment at their core, not pro-Balen exclusively. He is a figurehead for their frustration, but the movement seeks systemic change, not the coronation of a new leader.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="bg-white mt-8 py-6">
+        <div class="container mx-auto px-6 text-center text-gray-500">
+            <p>&copy; 2025 Infographic on Nepal's Political Landscape. Data synthesized from public records and political analysis.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const wrapLabel = (str, maxWidth) => {
+                if (str.length <= maxWidth) {
+                    return str;
+                }
+                const words = str.split(' ');
+                let lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxWidth) {
+                        lines.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            };
+
+            const tooltipTitleCallback = (tooltipItems) => {
+                const item = tooltipItems[0];
+                let label = item.chart.data.labels[item.dataIndex];
+                if (Array.isArray(label)) {
+                    return label.join(' ');
+                } else {
+                    return label;
+                }
+            };
+            
+            const energeticPalette = {
+                teal: '#00B8A9',
+                peach: '#F8B195',
+                coral: '#F67280',
+                mauve: '#C06C84',
+                purple: '#6C5B7B',
+                darkBlue: '#355C7D'
+            };
+
+            const ctxGov = document.getElementById('governanceChart')?.getContext('2d');
+            if (ctxGov) {
+                new Chart(ctxGov, {
+                    type: 'bar',
+                    data: {
+                        labels: ['1990 Constitution', '2007 Interim Constitution', '2015 Federal Republic'].map(label => wrapLabel(label, 16)),
+                        datasets: [{
+                            label: 'Head of State Power (King/President)',
+                            data: [8, 1, 2],
+                            backgroundColor: energeticPalette.coral,
+                        }, {
+                            label: 'Head of Government Power (Prime Minister)',
+                            data: [7, 9, 9],
+                            backgroundColor: energeticPalette.teal,
+                        }, {
+                            label: 'Legislative Power (Parliament)',
+                            data: [6, 8, 10],
+                            backgroundColor: energeticPalette.purple,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: { callbacks: { title: tooltipTitleCallback } },
+                            title: {
+                                display: true,
+                                text: 'Relative Power Index (1-10 Scale)',
+                                padding: { top: 10, bottom: 20 },
+                                font: { size: 14, weight: 'bold' }
+                            },
+                             legend: { position: 'bottom' }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 10,
+                                ticks: { stepSize: 2 }
+                            }
+                        }
+                    }
+                });
+            }
+
+            const ctxMayor = document.getElementById('mayorVoteChart')?.getContext('2d');
+            if (ctxMayor) {
+                new Chart(ctxMayor, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Balen Shah (Independent)', 'Nepali Congress', 'CPN (UML)'],
+                        datasets: [{
+                            label: 'Votes',
+                            data: [61767, 38341, 38117],
+                            backgroundColor: [
+                                energeticPalette.teal,
+                                energeticPalette.peach,
+                                energeticPalette.coral,
+                            ],
+                            borderColor: '#ffffff',
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            tooltip: { callbacks: { title: tooltipTitleCallback } },
+                            title: {
+                                display: true,
+                                text: 'Kathmandu Mayoral Election Results, 2022',
+                                padding: { top: 10, bottom: 20 },
+                                font: { size: 14, weight: 'bold' }
+                            },
+                             legend: { position: 'bottom' }
+                        },
+                        cutout: '60%'
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
