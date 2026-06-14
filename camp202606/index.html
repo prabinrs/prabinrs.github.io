@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Emerald Lake — June 2026 Camping</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<style>
+  :root {
+    --forest:    #1B3A2D;
+    --moss:      #2E6B4F;
+    --sage:      #7BAF8E;
+    --mist:      #D4EBE0;
+    --bark:      #5C3D1E;
+    --amber:     #E8A237;
+    --sky:       #5B9DC4;
+    --paper:     #F7F4EF;
+    --ink:       #1A1A1A;
+    --smoke:     #6B7280;
+    --snow:      #FFFFFF;
+    --warn:      #DC6B3A;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--forest);
+    color: var(--snow);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+  }
+  .hero-trees {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 120px;
+    opacity: 0.18;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    padding: 52px 40px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    color: var(--snow);
+  }
+  .hero h1 em { color: var(--amber); font-style: normal; }
+  .hero-sub {
+    font-size: 15px;
+    color: var(--mist);
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .hero-badge {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--mist);
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  .section { padding: 44px 0; border-bottom: 1px solid #E2DDD5; }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--forest);
+    margin-bottom: 24px;
+  }
+
+  /* ── WEATHER STRIP ── */
+  .weather-strip {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .weather-card {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-radius: 10px;
+    padding: 14px 18px;
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+  }
+  .weather-day {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--smoke);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .weather-icon { font-size: 28px; margin: 6px 0; }
+  .weather-temp {
+    font-weight: 600;
+    color: var(--forest);
+    font-size: 15px;
+  }
+  .weather-note { font-size: 11px; color: var(--smoke); margin-top: 3px; }
+  .weather-alert {
+    background: #FFF7ED;
+    border: 1px solid #FCD4A0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--bark);
+    margin-top: 14px;
+  }
+  .weather-alert strong { color: var(--warn); }
+
+  /* ── ITINERARY ── */
+  .day-block { margin-bottom: 28px; }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .day-pill {
+    background: var(--forest);
+    color: var(--snow);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 5px 12px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .day-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--forest);
+  }
+  .activity-list { display: flex; flex-direction: column; gap: 10px; }
+  .activity {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-left: 4px solid var(--sage);
+    border-radius: 8px;
+    padding: 12px 16px;
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+  .activity-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--smoke);
+    padding-top: 2px;
+  }
+  .activity-name { font-weight: 600; font-size: 14px; color: var(--forest); }
+  .activity-note { font-size: 12px; color: var(--smoke); margin-top: 3px; }
+
+  /* ── DRIVING INFO ── */
+  .drive-card {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .drive-stat { }
+  .drive-stat-label { font-size: 11px; color: var(--smoke); text-transform: uppercase; letter-spacing: 0.08em; }
+  .drive-stat-value { font-size: 18px; font-weight: 700; color: var(--forest); margin-top: 2px; }
+  .drive-tips { font-size: 13px; color: var(--ink); }
+  .drive-tips li { margin-bottom: 5px; padding-left: 4px; }
+
+  /* ── PACKING LISTS ── */
+  .pack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .pack-cat {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .pack-cat-title {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--forest);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .pack-cat ul { list-style: none; }
+  .pack-cat li {
+    font-size: 13px;
+    color: var(--ink);
+    padding: 4px 0;
+    border-bottom: 1px solid #F0EDE8;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.15s;
+  }
+  .pack-cat li:last-child { border-bottom: none; }
+  .pack-cat li.checked { color: var(--smoke); text-decoration: line-through; }
+  .pack-cat li .cb {
+    width: 15px; height: 15px;
+    border: 2px solid #C5BFB5;
+    border-radius: 3px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    transition: all 0.15s;
+  }
+  .pack-cat li.checked .cb {
+    background: var(--moss);
+    border-color: var(--moss);
+    color: white;
+  }
+
+  /* ── COOKING ── */
+  .meal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .meal-card {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .meal-slot {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--amber);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .meal-name { font-weight: 600; font-size: 14px; color: var(--forest); margin-bottom: 4px; }
+  .meal-desc { font-size: 12px; color: var(--smoke); }
+
+  /* ── NOTES / GOOGLE SHEETS ── */
+  .sheets-panel {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .sheets-toolbar {
+    background: var(--forest);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .sheets-toolbar-title {
+    color: var(--snow);
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sheets-toolbar-title span { font-size: 18px; }
+  .sheets-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--sage);
+  }
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid #E2DDD5;
+    background: #FAFAF8;
+    overflow-x: auto;
+  }
+  .tab {
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--smoke);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: all 0.15s;
+  }
+  .tab:hover { color: var(--forest); }
+  .tab.active {
+    color: var(--forest);
+    border-bottom-color: var(--moss);
+    background: var(--snow);
+  }
+  .tab-content { display: none; padding: 20px; }
+  .tab-content.active { display: block; }
+
+  /* form inputs */
+  .form-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .form-row input, .form-row select, .form-row textarea {
+    flex: 1;
+    min-width: 180px;
+    padding: 10px 14px;
+    border: 1px solid #D9D4CC;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    background: var(--paper);
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+    border-color: var(--moss);
+  }
+  .form-row textarea { resize: vertical; min-height: 70px; }
+  .btn {
+    padding: 10px 20px;
+    background: var(--moss);
+    color: var(--snow);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn:hover { background: var(--forest); }
+  .btn:disabled { background: #9CA3AF; cursor: not-allowed; }
+  .btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+  .btn-danger { background: #DC2626; }
+  .btn-danger:hover { background: #B91C1C; }
+
+  /* data table */
+  .data-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .data-table th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--smoke);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    border-bottom: 2px solid #E2DDD5;
+    background: #FAFAF8;
+  }
+  .data-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+    border-bottom: 1px solid #F0EDE8;
+    vertical-align: top;
+  }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: #F7F4EF; }
+  .tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+  .tag-todo { background: #FEF3C7; color: #92400E; }
+  .tag-done { background: #D1FAE5; color: #065F46; }
+  .tag-urgent { background: #FEE2E2; color: #991B1B; }
+  .tag-note { background: #E0E7FF; color: #3730A3; }
+
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--smoke);
+    font-size: 13px;
+  }
+  .empty-state .icon { font-size: 36px; margin-bottom: 10px; }
+
+  .loading {
+    text-align: center;
+    padding: 30px;
+    color: var(--smoke);
+    font-size: 13px;
+  }
+  .spinner {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border: 2px solid #E2DDD5;
+    border-top-color: var(--moss);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .sync-btn {
+    background: none;
+    border: 1px solid var(--sage);
+    color: var(--sage);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.15s;
+  }
+  .sync-btn:hover { background: var(--sage); color: var(--forest); }
+
+  /* ── TIPS ── */
+  .tip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .tip-card {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .tip-card-head {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--forest);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tip-card p, .tip-card li {
+    font-size: 12.5px;
+    color: var(--smoke);
+    margin-bottom: 4px;
+  }
+  .tip-card ul { padding-left: 14px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--forest);
+    color: var(--sage);
+    text-align: center;
+    padding: 24px 20px;
+    font-size: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.08em;
+  }
+  footer a { color: var(--amber); text-decoration: none; }
+
+  /* ── NAV ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(247,244,239,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid #E2DDD5;
+  }
+  .nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+  }
+  .nav-link {
+    padding: 12px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--smoke);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+  }
+  .nav-link:hover { color: var(--forest); border-bottom-color: var(--sage); }
+
+  /* ── MAP ── */
+  #map-canvas {
+    width: 100%;
+    height: 460px;
+    border-radius: 12px;
+    border: 1px solid #E2DDD5;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .map-wrapper { position: relative; }
+  .attraction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+  .attraction-card {
+    background: var(--snow);
+    border: 1px solid #E2DDD5;
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+    border-left: 4px solid var(--sage);
+  }
+  .attraction-card:hover { border-left-color: var(--moss); box-shadow: 0 2px 8px rgba(0,0,0,0.07); transform: translateY(-1px); }
+  .attraction-card.highlight { border-left-color: var(--amber); background: #FFFBF0; }
+  .attraction-day-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-bottom: 4px;
+  }
+  .attraction-name { font-weight: 600; font-size: 13px; color: var(--forest); margin-bottom: 3px; }
+  .attraction-desc { font-size: 11.5px; color: var(--smoke); line-height: 1.45; }
+  .attraction-tag {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 7px;
+    background: var(--mist);
+    color: var(--moss);
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .map-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--smoke);
+  }
+  .legend-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
+  /* Leaflet popup override */
+  .leaflet-popup-content-wrapper {
+    border-radius: 10px !important;
+    font-family: 'Inter', sans-serif !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12) !important;
+  }
+  .leaflet-popup-content { margin: 12px 16px !important; }
+  .popup-title { font-weight: 700; font-size: 14px; color: #1B3A2D; margin-bottom: 4px; }
+  .popup-day { font-size: 10px; color: #7BAF8E; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+  .popup-desc { font-size: 12px; color: #6B7280; line-height: 1.45; }
+  .popup-link { display: inline-block; margin-top: 7px; font-size: 11px; color: #2E6B4F; font-weight: 600; text-decoration: none; }
+  .popup-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .hero-inner { padding: 36px 20px 44px; }
+    .section { padding: 32px 0; }
+    .drive-card { grid-template-columns: 1fr 1fr; }
+    .activity { grid-template-columns: 50px 1fr; }
+    #map-canvas { height: 320px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <svg class="hero-trees" viewBox="0 0 900 120" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <polygon points="0,120 40,20 80,120" fill="#7BAF8E"/>
+    <polygon points="60,120 100,10 140,120" fill="#7BAF8E"/>
+    <polygon points="120,120 160,30 200,120" fill="#7BAF8E"/>
+    <polygon points="200,120 250,5 300,120" fill="#7BAF8E"/>
+    <polygon points="280,120 320,25 360,120" fill="#7BAF8E"/>
+    <polygon points="380,120 430,8 480,120" fill="#7BAF8E"/>
+    <polygon points="460,120 500,18 540,120" fill="#7BAF8E"/>
+    <polygon points="540,120 590,3 640,120" fill="#7BAF8E"/>
+    <polygon points="640,120 680,22 720,120" fill="#7BAF8E"/>
+    <polygon points="720,120 760,12 800,120" fill="#7BAF8E"/>
+    <polygon points="800,120 850,28 900,120" fill="#7BAF8E"/>
+  </svg>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">🏕️ Family Camping Trip · Prabin & Little One</div>
+    <h1>Emerald Lake<br /><em>State Park, Vermont</em></h1>
+    <div class="hero-sub">
+      <span class="hero-badge">📅 June 19–21, 2026</span>
+      <span class="hero-badge">🚗 Hyundai Tucson Hybrid</span>
+      <span class="hero-badge">⛺ Quest Zion 8-Person</span>
+      <span class="hero-badge">👧 Age 4 Along</span>
+      <span class="hero-badge">📍 Dorset, VT</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── STICKY NAV ── -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#weather" class="nav-link">🌤 Weather</a>
+    <a href="#drive" class="nav-link">🚗 Drive</a>
+    <a href="#itinerary" class="nav-link">🗓 Itinerary</a>
+    <a href="#map" class="nav-link">🗺 Map</a>
+    <a href="#cooking" class="nav-link">🍳 Cooking</a>
+    <a href="#packing" class="nav-link">🎒 Packing</a>
+    <a href="#tips" class="nav-link">💡 Tips</a>
+    <a href="#notes" class="nav-link">📋 Notes & Planning</a>
+  </div>
+</nav>
+
+<!-- ── WEATHER ── -->
+<div id="weather" class="section">
+  <div class="container">
+    <div class="section-label">Forecast</div>
+    <div class="section-title">Weather — Dorset, VT</div>
+    <div class="weather-strip">
+      <div class="weather-card">
+        <div class="weather-day">FRI · Jun 19</div>
+        <div class="weather-icon">⛅</div>
+        <div class="weather-temp">High ~75°F · Low ~50°F</div>
+        <div class="weather-note">Partly cloudy · Light winds</div>
+      </div>
+      <div class="weather-card">
+        <div class="weather-day">SAT · Jun 20</div>
+        <div class="weather-icon">🌤</div>
+        <div class="weather-temp">High ~78°F · Low ~52°F</div>
+        <div class="weather-note">Mostly sunny · Best day</div>
+      </div>
+      <div class="weather-card">
+        <div class="weather-day">SUN · Jun 21</div>
+        <div class="weather-icon">🌦</div>
+        <div class="weather-temp">High ~72°F · Low ~48°F</div>
+        <div class="weather-note">Possible PM showers</div>
+      </div>
+    </div>
+    <div class="weather-alert">
+      <strong>⚠️ Rain-ready:</strong> June is Dorset's wettest month (~3.6" precipitation). Your Quest Zion rainfly should be attached every night. Always check <a href="https://weather.gov" target="_blank" style="color:var(--bark)">weather.gov</a> the day before departure for updated forecasts. Humidity stays around 79% — morning condensation inside the tent is normal, keep vents open.
+    </div>
+  </div>
+</div>
+
+<!-- ── DRIVE ── -->
+<div id="drive" class="section">
+  <div class="container">
+    <div class="section-label">Getting There</div>
+    <div class="section-title">Drive: Malden → Emerald Lake</div>
+    <div class="drive-card">
+      <div class="drive-stat">
+        <div class="drive-stat-label">Distance</div>
+        <div class="drive-stat-value">~175 mi</div>
+      </div>
+      <div class="drive-stat">
+        <div class="drive-stat-label">Drive Time</div>
+        <div class="drive-stat-value">~2.5 hrs</div>
+      </div>
+      <div class="drive-stat">
+        <div class="drive-stat-label">Vehicle</div>
+        <div class="drive-stat-value">Tucson Hybrid</div>
+      </div>
+      <div class="drive-stat">
+        <div class="drive-stat-label">Est. Fuel</div>
+        <div class="drive-stat-value">~3.5 gal</div>
+      </div>
+      <div class="drive-stat">
+        <div class="drive-stat-label">Park Phone</div>
+        <div class="drive-stat-value" style="font-size:14px">(802) 362-1655</div>
+      </div>
+    </div>
+    <p style="font-size:13px; color:var(--smoke); margin-bottom:12px;">Route: I-93 N → I-89 N → Exit 4 Randolph → VT-12 S → US-4 W → US-7 S → Emerald Lake Ln</p>
+    <ul class="drive-tips">
+      <li>🔋 Tucson Hybrid gets ~38 mpg on highway — minimal fuel stops needed both ways</li>
+      <li>🧒 Plan a snack + stretch break ~halfway (around White River Junction, VT)</li>
+      <li>📦 Load the night before so you can leave by 8–9 AM Friday to arrive mid-afternoon</li>
+      <li>🗺️ Download Google Maps offline for Bennington County — cell coverage in Dorset can be spotty</li>
+      <li>🅿️ The park address is 65 Emerald Lake Ln, East Dorset, VT 05253</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── ITINERARY ── -->
+<div id="itinerary" class="section">
+  <div class="container">
+    <div class="section-label">Day by Day</div>
+    <div class="section-title">Trip Itinerary</div>
+
+    <div class="day-block">
+      <div class="day-header">
+        <span class="day-pill">FRI · JUN 19</span>
+        <span class="day-title">Arrive & Settle In</span>
+      </div>
+      <div class="activity-list">
+        <div class="activity">
+          <div class="activity-time">8:00 AM</div>
+          <div>
+            <div class="activity-name">Depart from Malden</div>
+            <div class="activity-note">Pack snacks & kids' travel bag in back seat. Fuel up on the way out.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">~10:30 AM</div>
+          <div>
+            <div class="activity-name">Rest stop — White River Junction, VT</div>
+            <div class="activity-note">Stretch, snack, bathroom break. Good halfway point for your 4-year-old.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">~2:00 PM</div>
+          <div>
+            <div class="activity-name">Arrive · Set up Quest Zion 8-Person Tent</div>
+            <div class="activity-note">Pick a site away from Rt. 7 to reduce road noise. Request a wooded windbreak site at check-in. Stake all guy-lines; attach rainfly before dark.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">4:30 PM</div>
+          <div>
+            <div class="activity-name">🏖 Emerald Lake Beach</div>
+            <div class="activity-note">Shallow clear water — perfect for a 4-year-old. Snack bar on site (takes Apple Pay). Let the little one decompress after the drive.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">7:00 PM</div>
+          <div>
+            <div class="activity-name">🍳 Camp Dinner + Campfire</div>
+            <div class="activity-note">One-pot pasta or foil pack dinner. Then ranger campfire program — ask at the office for the evening schedule. Great for kids!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-block">
+      <div class="day-header">
+        <span class="day-pill">SAT · JUN 20</span>
+        <span class="day-title">Water, Quarry & Mini Golf</span>
+      </div>
+      <div class="activity-list">
+        <div class="activity">
+          <div class="activity-time">8:00 AM</div>
+          <div>
+            <div class="activity-name">☕ Camp Breakfast</div>
+            <div class="activity-note">Scrambled eggs + toast on the camp stove. Coffee for adults, hot cocoa for the kid.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">9:00 AM</div>
+          <div>
+            <div class="activity-name">🥾 Lake Trail Hike</div>
+            <div class="activity-note">Flat, beautiful trail along the lake — fully manageable for a 4-year-old. Stay on the marked trail; avoid the railroad tracks (active rail!).</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">10:30 AM</div>
+          <div>
+            <div class="activity-name">🛶 Kayak / Canoe Rental (Park Dock)</div>
+            <div class="activity-note">Life jackets provided — mandatory for kids. Paddle toward the small island! Snack bar nearby.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">1:00 PM</div>
+          <div>
+            <div class="activity-name">🏊 Dorset Marble Quarry <span style="font-size:11px; color:var(--smoke)">(10 min drive)</span></div>
+            <div class="activity-note">America's oldest marble quarry — a stunning natural swimming hole. Shallow entry areas are safe for toddlers. Very refreshing! Bring chairs and snacks. (802) 566-0677</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">4:00 PM</div>
+          <div>
+            <div class="activity-name">⛳ Otter Creek Fun Center <span style="font-size:11px; color:var(--smoke)">(15 min north)</span></div>
+            <div class="activity-note">18-hole mini golf, arcade, driving range, homemade ice cream — a 4-year-old's dream. Food available on site. Open until 8 PM. (802) 293-9200</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">7:00 PM</div>
+          <div>
+            <div class="activity-name">🔥 Campfire Dinner + Stargazing</div>
+            <div class="activity-note">Hot dogs or foil pack chicken. No light pollution in Dorset — incredible stars for the little one. Ranger night hike if offered!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-block">
+      <div class="day-header">
+        <span class="day-pill">SUN · JUN 21</span>
+        <span class="day-title">Nature Center & Departure</span>
+      </div>
+      <div class="activity-list">
+        <div class="activity">
+          <div class="activity-time">8:00 AM</div>
+          <div>
+            <div class="activity-name">🍳 Breakfast & Break Down Camp</div>
+            <div class="activity-note">Pack the tent while your child explores — make it a game. Check out checkout time with the park (usually 11 AM).</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">9:00 AM</div>
+          <div>
+            <div class="activity-name">🦎 Park Nature Center</div>
+            <div class="activity-note">Amphibian explorations, nature crafts, wildlife spotting — rangers are fantastic with kids. Check for the Sunday morning program schedule.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">10:30 AM</div>
+          <div>
+            <div class="activity-name">🌊 East Dorset Trail (first mile only)</div>
+            <div class="activity-note">Brook trail with small waterfalls — reviewers have done it with a 3-year-old! Easy first mile is enchanting. 10 min drive south.</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">12:30 PM</div>
+          <div>
+            <div class="activity-name">🍽 Farewell Lunch — Dorset Inn</div>
+            <div class="activity-note">Historic 1796 restaurant in charming Dorset village. Excellent clam chowder and burgers. Kid-friendly. (802) 867-5500</div>
+          </div>
+        </div>
+        <div class="activity">
+          <div class="activity-time">2:00 PM</div>
+          <div>
+            <div class="activity-name">🚗 Drive Home to Malden</div>
+            <div class="activity-note">~2.5 hrs. Your little one will likely nap the whole way. ✨</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MAP ── -->
+<div id="map" class="section">
+  <div class="container">
+    <div class="section-label">Attractions & Points of Interest</div>
+    <div class="section-title">Trip Map — Dorset &amp; Surroundings, VT</div>
+    <div class="map-wrapper">
+      <div id="map-canvas"></div>
+    </div>
+    <div class="map-legend">
+      <span><span class="legend-dot" style="background:#1B3A2D"></span>🏕 Base Camp</span>
+      <span><span class="legend-dot" style="background:#2E6B4F"></span>Friday</span>
+      <span><span class="legend-dot" style="background:#E8A237"></span>Saturday</span>
+      <span><span class="legend-dot" style="background:#5B9DC4"></span>Sunday</span>
+    </div>
+    <p style="font-size:12px;color:var(--smoke);margin-top:8px;">Click a card or map pin to highlight. Opens Google Maps on pin click.</p>
+    <div class="attraction-grid" id="attractionGrid"></div>
+  </div>
+</div>
+
+<!-- ── COOKING ── -->
+<div id="cooking" class="section">
+  <div class="container">
+    <div class="section-label">Meal Plan</div>
+    <div class="section-title">Camp Cooking</div>
+    <div class="meal-grid">
+      <div class="meal-card">
+        <div class="meal-slot">FRI DINNER</div>
+        <div class="meal-name">One-Pot Pasta</div>
+        <div class="meal-desc">Pasta + canned tomato sauce + Italian sausage. One pot, 20 min. Kid-approved.</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-slot">SAT BREAKFAST</div>
+        <div class="meal-name">Scrambled Eggs & Toast</div>
+        <div class="meal-desc">Eggs in a pan, bread on the camp grill. Add cheese for the little one.</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-slot">SAT LUNCH</div>
+        <div class="meal-name">PB&J + Fruit at the Quarry</div>
+        <div class="meal-desc">Pack it in the cooler. Eat by the marble swimming hole — very Vermont.</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-slot">SAT DINNER</div>
+        <div class="meal-name">Campfire Foil Packets</div>
+        <div class="meal-desc">Chicken or hot dogs + potatoes + veggies in foil, cooked over coals. Zero dishes.</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-slot">SUN BREAKFAST</div>
+        <div class="meal-name">Pancakes on the Griddle</div>
+        <div class="meal-desc">Premix batter at home. Maple syrup is basically Vermont law.</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-slot">SUN LUNCH</div>
+        <div class="meal-name">Dorset Inn (dine out)</div>
+        <div class="meal-desc">Reward yourself. Famous clam chowder + burgers. Kid-friendly atmosphere.</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-slot">SNACKS</div>
+        <div class="meal-name">Trail Mix, Granola Bars, Fruit</div>
+        <div class="meal-desc">Pre-portion into ziplocs. Bring enough to stuff a hiking backpack.</div>
+      </div>
+      <div class="meal-card">
+        <div class="meal-slot">CAMPFIRE TREAT</div>
+        <div class="meal-name">S'mores 🔥</div>
+        <div class="meal-desc">Graham crackers + chocolate + marshmallows. Non-negotiable with a 4-year-old.</div>
+      </div>
+    </div>
+    <p style="font-size:12px; color:var(--smoke); margin-top:16px;">🧊 <strong>Cooler tip:</strong> Layer with ice at bottom, meats at bottom, dairy in middle, drinks/fruit on top. Pre-freeze water bottles to use as ice blocks — they last longer and you can drink them as they melt. Bring a separate small cooler just for drinks to keep the main cooler sealed.</p>
+  </div>
+</div>
+
+<!-- ── PACKING ── -->
+<div id="packing" class="section">
+  <div class="container">
+    <div class="section-label">Checklist</div>
+    <div class="section-title">Packing List <span style="font-size:13px; font-weight:400; color:var(--smoke); font-family:Inter">(click to check off)</span></div>
+    <div class="pack-grid" id="packGrid"></div>
+  </div>
+</div>
+
+<!-- ── TIPS ── -->
+<div id="tips" class="section">
+  <div class="container">
+    <div class="section-label">Prep Notes</div>
+    <div class="section-title">Key Tips</div>
+    <div class="tip-grid">
+      <div class="tip-card">
+        <div class="tip-card-head">⛺ Quest Zion Tent Setup</div>
+        <ul>
+          <li>Attach rainfly before nightfall every night — Vermont weather shifts fast</li>
+          <li>Ground cloth under tent to stop moisture wicking up</li>
+          <li>Stake all guy-lines — large tent catches wind</li>
+          <li>Keep mesh vents open even with rainfly (prevents condensation)</li>
+          <li>Bring a mallet — VT ground can be rocky</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-head">👧 Traveling with a 4-Year-Old</div>
+        <ul>
+          <li>Kids' life jacket for paddling (bring your own for fit)</li>
+          <li>Waterproof jacket + boots — trails get muddy after rain</li>
+          <li>Portable potty for nighttime without walking to bathrooms</li>
+          <li>Kid headlamp — they'll love having their own</li>
+          <li>Small comfort toy or stuffed animal from home</li>
+          <li>Children's Benadryl + antihistamine cream for bug bites</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-head">🦟 Bugs & Safety</div>
+        <ul>
+          <li>Vermont has <strong>ticks</strong> — do a full tick check every evening</li>
+          <li>Black flies are common near water in early June — cover up</li>
+          <li>Bug spray with DEET or Picaridin (Picaridin safer for kids)</li>
+          <li>⚠️ Active railroad runs near the lake trail — stay on marked paths</li>
+          <li>Teach your child the safety whistle rule if separated</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-head">🚗 Hyundai Tucson Hybrid</div>
+        <ul>
+          <li>~38 mpg highway = ~5 gal round trip, minimal stops</li>
+          <li>Load cargo carefully — rear visibility matters on VT back roads</li>
+          <li>Download offline Google Maps before leaving; spotty coverage in Dorset</li>
+          <li>Park phone: (802) 362-1655 — call ahead to confirm site</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-head">🏊 Dorset Quarry Notes</div>
+        <ul>
+          <li>Parking fee applies — bring cash or card</li>
+          <li>Shallow marble ledges safe for toddlers; avoid deep jump areas</li>
+          <li>No lifeguard — supervise closely with a 4-year-old</li>
+          <li>Bring shade umbrella + chairs — very little natural shade</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <div class="tip-card-head">⛽ Cooking Tips</div>
+        <ul>
+          <li>Pre-chop and pre-marinate at home — saves time & dishes</li>
+          <li>Bring extra fuel canister for the camp stove</li>
+          <li>Bear box / hang food bag at night — VT has black bears</li>
+          <li>Biodegradable camp soap for washing up</li>
+          <li>Paper plates for easy cleanup on busy days</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NOTES & PLANNING (Google Sheets) ── -->
+<div id="notes" class="section">
+  <div class="container">
+    <div class="section-label">Google Sheets Database</div>
+    <div class="section-title">Notes & Planning Board</div>
+    <div class="sheets-panel">
+      <div class="sheets-toolbar">
+        <div class="sheets-toolbar-title"><span>📋</span> camping_june2026 — Live Google Sheet</div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <span class="sheets-status" id="syncStatus">⏳ Loading…</span>
+          <button class="sync-btn" onclick="loadSheet()">↻ Refresh</button>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <div class="tab active" onclick="switchTab('notes')">📝 Notes</div>
+        <div class="tab" onclick="switchTab('planning')">✅ Planning</div>
+        <div class="tab" onclick="switchTab('shopping')">🛒 Shopping</div>
+      </div>
+
+      <!-- NOTES TAB -->
+      <div id="tab-notes" class="tab-content active">
+        <div class="form-row">
+          <input type="text" id="noteTitle" placeholder="Note title…" />
+          <select id="noteTag">
+            <option value="note">📝 Note</option>
+            <option value="urgent">🚨 Urgent</option>
+            <option value="done">✅ Done</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <textarea id="noteBody" placeholder="Write your note here…" rows="2"></textarea>
+        </div>
+        <div class="form-row" style="justify-content:flex-end;">
+          <button class="btn btn-sm" onclick="addRow('Notes')">+ Add Note</button>
+        </div>
+        <div id="notesTable"><div class="loading"><span class="spinner"></span> Loading notes…</div></div>
+      </div>
+
+      <!-- PLANNING TAB -->
+      <div id="tab-planning" class="tab-content">
+        <div class="form-row">
+          <input type="text" id="planItem" placeholder="Planning item or task…" />
+          <select id="planStatus">
+            <option value="todo">🔲 To-Do</option>
+            <option value="done">✅ Done</option>
+            <option value="urgent">🚨 Urgent</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <input type="text" id="planOwner" placeholder="Assigned to (e.g. Prabin)…" />
+          <input type="date" id="planDue" />
+        </div>
+        <div class="form-row" style="justify-content:flex-end;">
+          <button class="btn btn-sm" onclick="addRow('Planning')">+ Add Item</button>
+        </div>
+        <div id="planningTable"><div class="loading"><span class="spinner"></span> Loading…</div></div>
+      </div>
+
+      <!-- SHOPPING TAB -->
+      <div id="tab-shopping" class="tab-content">
+        <div class="form-row">
+          <input type="text" id="shopItem" placeholder="Item to buy…" />
+          <input type="text" id="shopStore" placeholder="Store / source…" />
+          <select id="shopDone">
+            <option value="no">🔲 Need to buy</option>
+            <option value="yes">✅ Bought</option>
+          </select>
+        </div>
+        <div class="form-row" style="justify-content:flex-end;">
+          <button class="btn btn-sm" onclick="addRow('Shopping')">+ Add Item</button>
+        </div>
+        <div id="shoppingTable"><div class="loading"><span class="spinner"></span> Loading…</div></div>
+      </div>
+    </div>
+
+    <p style="font-size:11px; color:var(--smoke); margin-top:12px; font-family:'JetBrains Mono',monospace;">
+      🔗 Data stored in your <a href="https://docs.google.com/spreadsheets/d/1WAeIhOECVQt0US00SYf7BvpdKMeDXOyoa-nQ_N8iAnY/edit" target="_blank" style="color:var(--moss)">public Google Sheet</a> · Reads via Sheets JSON API · Writes via Apps Script (see setup note below)
+    </p>
+    <div id="setupNote" style="display:none; background:#FFF7ED; border:1px solid #FCD4A0; border-radius:8px; padding:14px; margin-top:12px; font-size:12px; color:var(--bark);">
+      <strong>⚙️ One-time write setup:</strong> To enable adding notes from this page, open your Google Sheet → Extensions → Apps Script → paste the Apps Script code below → Deploy as Web App (access: Anyone). Then replace <code>APPS_SCRIPT_URL</code> in this file with your deployment URL.
+      <pre style="background:#FEF3C7; padding:10px; border-radius:6px; margin-top:8px; font-size:11px; overflow-x:auto;">
+// Google Apps Script — paste in your sheet's Apps Script editor
+function doPost(e) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var data = JSON.parse(e.postData.contents);
+  var sheet = ss.getSheetByName(data.sheet) || ss.insertSheet(data.sheet);
+  sheet.appendRow(data.row);
+  return ContentService.createTextOutput(JSON.stringify({status:'ok'}))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+      </pre>
+    </div>
+    <button onclick="document.getElementById('setupNote').style.display = document.getElementById('setupNote').style.display === 'none' ? 'block' : 'none'" style="font-size:11px; background:none; border:none; color:var(--moss); cursor:pointer; margin-top:6px; font-family:'JetBrains Mono',monospace;">⚙️ Show write setup instructions</button>
+  </div>
+</div>
+
+<footer>
+  <div>🏕 Emerald Lake State Park · Dorset, Vermont · June 19–21, 2026</div>
+  <div style="margin-top:6px;">Built for Prabin & Family · Data powered by <a href="https://docs.google.com/spreadsheets/d/1WAeIhOECVQt0US00SYf7BvpdKMeDXOyoa-nQ_N8iAnY/edit" target="_blank">Google Sheets</a></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// ───────────────────────────────────────────
+//  ATTRACTIONS DATA
+// ───────────────────────────────────────────
+const ATTRACTIONS = [
+  {
+    id: 'base',
+    name: '🏕 Emerald Lake State Park — Base Camp',
+    day: 'All Days · Base Camp',
+    lat: 43.2808, lng: -73.0049,
+    color: '#1B3A2D',
+    tag: '⛺ Camping',
+    desc: '430-acre park, 67 campsites, flush toilets, hot showers. Beach, boat rentals, nature center, ranger programs.',
+    gmaps: 'https://maps.google.com/?q=Emerald+Lake+State+Park,+East+Dorset,+VT',
+    phone: '(802) 362-1655'
+  },
+  {
+    id: 'beach',
+    name: '🏖 Emerald Lake Beach',
+    day: 'Friday · Afternoon',
+    lat: 43.2795, lng: -73.0060,
+    color: '#2E6B4F',
+    tag: '🌊 Swimming',
+    desc: 'Shallow, clear emerald water — perfect for a 4-year-old. Snack bar on site accepts Apple Pay.',
+    gmaps: 'https://maps.google.com/?q=Emerald+Lake+Beach,+East+Dorset,+VT'
+  },
+  {
+    id: 'trail',
+    name: '🥾 Emerald Lake Trail',
+    day: 'Saturday · Morning',
+    lat: 43.2830, lng: -73.0030,
+    color: '#E8A237',
+    tag: '🌿 Hiking',
+    desc: 'Flat, scenic trail along the lakeshore. Great for toddlers. ⚠️ Avoid railroad tracks at trail end.',
+    gmaps: 'https://maps.google.com/?q=Emerald+Lake+Trail,+East+Dorset,+VT'
+  },
+  {
+    id: 'kayak',
+    name: '🛶 Kayak & Canoe Dock',
+    day: 'Saturday · Mid-Morning',
+    lat: 43.2800, lng: -73.0055,
+    color: '#E8A237',
+    tag: '🚣 Water Sports',
+    desc: 'Kayak, canoe & paddleboard rentals inside the park. Life jackets provided — required for kids.',
+    gmaps: 'https://maps.google.com/?q=Emerald+Lake+State+Park,+East+Dorset,+VT'
+  },
+  {
+    id: 'quarry',
+    name: '🏊 Dorset Marble Quarry',
+    day: 'Saturday · Afternoon',
+    lat: 43.2360, lng: -73.0835,
+    color: '#E8A237',
+    tag: '💎 Swimming',
+    desc: "America's oldest marble quarry, now a stunning natural swimming hole. Shallow entry safe for toddlers. Bring chairs & snacks.",
+    gmaps: 'https://maps.google.com/?q=Dorset+Marble+Quarry,+Dorset,+VT',
+    phone: '(802) 566-0677'
+  },
+  {
+    id: 'ottercreek',
+    name: '⛳ Otter Creek Fun Center',
+    day: 'Saturday · Late Afternoon',
+    lat: 43.3890, lng: -72.9964,
+    color: '#E8A237',
+    tag: '🎉 Family Fun',
+    desc: 'Mini golf, arcade, driving range, homemade ice cream & food. Open until 8 PM. Perfect for a 4-year-old!',
+    gmaps: 'https://maps.google.com/?q=Otter+Creek+Fun+Center,+Danby,+VT',
+    phone: '(802) 293-9200'
+  },
+  {
+    id: 'naturecenter',
+    name: '🦎 Park Nature Center',
+    day: 'Sunday · Morning',
+    lat: 43.2820, lng: -73.0040,
+    color: '#5B9DC4',
+    tag: '🔬 Nature',
+    desc: 'Amphibian explorations, nature crafts & wildlife programs run by park rangers. Kids love it!',
+    gmaps: 'https://maps.google.com/?q=Emerald+Lake+State+Park,+East+Dorset,+VT'
+  },
+  {
+    id: 'eastdorset',
+    name: '🌊 East Dorset Trail',
+    day: 'Sunday · Late Morning',
+    lat: 43.2405, lng: -72.9989,
+    color: '#5B9DC4',
+    tag: '🌿 Hiking',
+    desc: 'Brook trail with small waterfalls — reviewers have done this with a 3-year-old! Stick to the beautiful first mile.',
+    gmaps: 'https://maps.google.com/?q=East+Dorset+Trail,+East+Dorset,+VT'
+  },
+  {
+    id: 'dorsetinn',
+    name: '🍽 Dorset Inn Restaurant',
+    day: 'Sunday · Farewell Lunch',
+    lat: 43.2551, lng: -73.0994,
+    color: '#5B9DC4',
+    tag: '🍴 Dining',
+    desc: 'Historic 1796 restaurant in charming Dorset village. Famous clam chowder, great burgers. Kid-friendly.',
+    gmaps: 'https://maps.google.com/?q=Dorset+Inn,+Dorset,+VT',
+    phone: '(802) 867-5500'
+  }
+];
+
+// ───────────────────────────────────────────
+//  LEAFLET MAP INIT
+// ───────────────────────────────────────────
+let leafletMap, markers = {};
+
+function makeSvgIcon(color, size = 32) {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size+8}" viewBox="0 0 32 40">
+    <circle cx="16" cy="16" r="13" fill="${color}" stroke="white" stroke-width="2.5"/>
+    <polygon points="10,25 22,25 16,38" fill="${color}"/>
+    <circle cx="16" cy="16" r="5" fill="white" opacity="0.85"/>
+  </svg>`;
+  return L.divIcon({
+    html: svg,
+    className: '',
+    iconSize: [size, size + 8],
+    iconAnchor: [size / 2, size + 8],
+    popupAnchor: [0, -(size + 6)]
+  });
+}
+
+function initMap() {
+  leafletMap = L.map('map-canvas', { zoomControl: true, scrollWheelZoom: false }).setView([43.2808, -73.0049], 12);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com">CARTO</a>',
+    maxZoom: 18
+  }).addTo(leafletMap);
+
+  ATTRACTIONS.forEach(a => {
+    const icon = makeSvgIcon(a.id === 'base' ? '#1B3A2D' : a.color);
+    const marker = L.marker([a.lat, a.lng], { icon }).addTo(leafletMap);
+    const phoneHtml = a.phone ? `<div style="font-size:11px;color:#6B7280;margin-top:3px;">📞 ${a.phone}</div>` : '';
+    marker.bindPopup(`
+      <div class="popup-day">${a.day}</div>
+      <div class="popup-title">${a.name}</div>
+      <div class="popup-desc">${a.desc}</div>
+      ${phoneHtml}
+      <a class="popup-link" href="${a.gmaps}" target="_blank">↗ Open in Google Maps</a>
+    `, { maxWidth: 240 });
+    marker.on('click', () => highlightCard(a.id));
+    markers[a.id] = marker;
+  });
+}
+
+// ───────────────────────────────────────────
+//  ATTRACTION CARDS
+// ───────────────────────────────────────────
+function buildAttractionCards() {
+  const grid = document.getElementById('attractionGrid');
+  grid.innerHTML = ATTRACTIONS.map(a => `
+    <div class="attraction-card" id="card-${a.id}" onclick="flyTo('${a.id}')">
+      <div class="attraction-day-badge">${a.day}</div>
+      <div class="attraction-name">${a.name}</div>
+      <div class="attraction-desc">${a.desc}</div>
+      <span class="attraction-tag">${a.tag}</span>
+    </div>
+  `).join('');
+}
+
+function flyTo(id) {
+  const a = ATTRACTIONS.find(x => x.id === id);
+  if (!a) return;
+  leafletMap.flyTo([a.lat, a.lng], 14, { duration: 1 });
+  setTimeout(() => markers[id].openPopup(), 900);
+  highlightCard(id);
+  document.getElementById('map-canvas').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+function highlightCard(id) {
+  document.querySelectorAll('.attraction-card').forEach(c => c.classList.remove('highlight'));
+  const card = document.getElementById('card-' + id);
+  if (card) { card.classList.add('highlight'); card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
+}
+
+// init after DOM ready
+document.addEventListener('DOMContentLoaded', () => {
+  initMap();
+  buildAttractionCards();
+});
+</script>
+
+<script>
+// ───────────────────────────────────────────
+//  CONFIG
+// ───────────────────────────────────────────
+const SHEET_ID = '1WAeIhOECVQt0US00SYf7BvpdKMeDXOyoa-nQ_N8iAnY';
+// Replace with your deployed Apps Script URL after setup:
+const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+
+// ───────────────────────────────────────────
+//  PACKING LIST (localStorage for checkboxes)
+// ───────────────────────────────────────────
+const PACK_ITEMS = [
+  { cat: '⛺ Shelter & Sleep', items: ['Quest Zion 8-person tent', 'Rainfly (attached!)', 'Ground cloth / footprint', 'Heavy-duty tent stakes + mallet', 'Sleeping bag ~40°F rated (×2)', 'Sleeping pads / air mattress', 'Pillows'] },
+  { cat: '👕 Clothing', items: ['Warm fleece / light down jacket', 'Rain jacket / poncho ×2', 'Quick-dry hiking pants', 'Swimsuits ×2 each', 'Hiking shoes + water sandals', 'Warm socks ×3 pairs each', 'Sun hat + warm beanie', 'Underwear ×3 each', 'Child waterproof boots'] },
+  { cat: '🍳 Kitchen', items: ['Camp stove + extra fuel', 'Pot, pan, utensils', 'Cooler (main) + small drinks cooler', 'Ice / frozen water bottles', 'Camp coffee setup', 'Cutting board + camp knife', 'Biodegradable soap + sponge', 'Paper towels + trash bags', 'Aluminum foil for packets', 'Ziploc bags (various sizes)', 'Water bottles ×2 each', 'Reusable plates + cups'] },
+  { cat: '🥘 Food', items: ['Pasta + canned sauce + sausage', 'Eggs, bread, cheese', 'Pancake premix + maple syrup', 'PB&J + bread', 'Chicken / hot dogs for foil packets', 'Potatoes + veggies', 'Trail mix + granola bars', 'Fresh fruit', 'Kids snack boxes', "S'mores kit (graham, choc, marshmallow)", 'Coffee + hot cocoa', 'Condiments: salt, pepper, oil'] },
+  { cat: '🩺 Safety & Health', items: ["First aid kit", "Children's Benadryl", "Antihistamine cream (bug bites)", "Tick removal tool", "Bug spray (Picaridin for kids)", "Sunscreen SPF 50+", "Children's pain reliever", "Moleskin (blisters)", "Safety whistle (child)", "Hand sanitizer", "Face masks (optional)"] },
+  { cat: '💡 Lighting & Gear', items: ['Headlamps ×2 + spare batteries', 'Kid headlamp (they love it!)', 'Lantern for picnic table', 'Lighter + waterproof matches', 'Multi-tool / pocket knife', 'Duct tape', 'Rope / paracord (hang food bag)', 'Bear bag / food storage bag'] },
+  { cat: '👧 Kid Extras', items: ['Child life jacket (own fit)', 'Beach toys — bucket & shovel', 'Bug catching kit (jar + net)', 'Portable potty', 'Comfort toy / stuffed animal', 'Coloring books + crayons', 'Travel games', 'Child carrier / backpack'] },
+  { cat: '🧹 Camp Essentials', items: ['Camp chairs ×2', 'Picnic blanket', 'Tarp (extra rain coverage)', 'Clothesline + pins (wet swimsuits)', 'Camp towels (quick-dry)', 'Small broom for tent floor', 'Toilet paper (extra roll)', 'Wet wipes'] },
+];
+
+function buildPacking() {
+  const saved = JSON.parse(localStorage.getItem('camp_checks') || '{}');
+  const grid = document.getElementById('packGrid');
+  grid.innerHTML = '';
+  PACK_ITEMS.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = 'pack-cat';
+    div.innerHTML = `<div class="pack-cat-title">${cat.cat}</div><ul>${cat.items.map(item => {
+      const key = cat.cat + '|' + item;
+      const checked = saved[key];
+      return `<li class="${checked ? 'checked' : ''}" data-key="${key}"><span class="cb">${checked ? '✓' : ''}</span>${item}</li>`;
+    }).join('')}</ul>`;
+    grid.appendChild(div);
+  });
+  grid.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', () => {
+      const saves = JSON.parse(localStorage.getItem('camp_checks') || '{}');
+      const key = li.dataset.key;
+      saves[key] = !saves[key];
+      li.classList.toggle('checked', saves[key]);
+      li.querySelector('.cb').textContent = saves[key] ? '✓' : '';
+      localStorage.setItem('camp_checks', JSON.stringify(saves));
+    });
+  });
+}
+
+// ───────────────────────────────────────────
+//  TAB SWITCHING
+// ───────────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    const tabs = ['notes','planning','shopping'];
+    t.classList.toggle('active', tabs[i] === name);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => {
+    c.classList.toggle('active', c.id === 'tab-' + name);
+  });
+}
+
+// ───────────────────────────────────────────
+//  GOOGLE SHEETS READ (public JSON API)
+// ───────────────────────────────────────────
+async function fetchSheet(sheetName) {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(sheetName)}`;
+  try {
+    const res = await fetch(url);
+    const text = await res.text();
+    const json = JSON.parse(text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/)[1]);
+    if (!json.table || !json.table.rows) return [];
+    const cols = json.table.cols.map(c => c.label);
+    return json.table.rows.map(row => {
+      const obj = {};
+      row.c.forEach((cell, i) => { obj[cols[i]] = cell ? cell.v : ''; });
+      return obj;
+    });
+  } catch(e) { return null; }
+}
+
+function tagBadge(val) {
+  const map = { 'todo':'tag-todo', 'done':'tag-done', 'urgent':'tag-urgent', 'note':'tag-note', 'yes':'tag-done', 'no':'tag-todo' };
+  const labels = { 'todo':'To-Do','done':'Done','urgent':'Urgent','note':'Note','yes':'Bought','no':'Need' };
+  const cls = map[val] || 'tag-note';
+  return `<span class="tag ${cls}">${labels[val] || val}</span>`;
+}
+
+async function renderNotes() {
+  const el = document.getElementById('notesTable');
+  const data = await fetchSheet('Notes');
+  if (!data) { el.innerHTML = '<div class="empty-state"><div class="icon">📋</div>Could not load — make sure the sheet tab is named "Notes" and is public.</div>'; return; }
+  if (!data.length) { el.innerHTML = '<div class="empty-state"><div class="icon">📝</div>No notes yet. Add your first note above!</div>'; return; }
+  el.innerHTML = `<table class="data-table"><thead><tr><th>Title</th><th>Note</th><th>Tag</th><th>Date</th></tr></thead><tbody>${
+    data.map(r => `<tr><td><strong>${r.Title||''}</strong></td><td>${r.Body||''}</td><td>${tagBadge(r.Tag)}</td><td style="font-size:11px;color:var(--smoke)">${r.Date||''}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+async function renderPlanning() {
+  const el = document.getElementById('planningTable');
+  const data = await fetchSheet('Planning');
+  if (!data) { el.innerHTML = '<div class="empty-state"><div class="icon">✅</div>Could not load — make sure the sheet tab is named "Planning".</div>'; return; }
+  if (!data.length) { el.innerHTML = '<div class="empty-state"><div class="icon">📌</div>No planning items yet. Add tasks above!</div>'; return; }
+  el.innerHTML = `<table class="data-table"><thead><tr><th>Item</th><th>Status</th><th>Owner</th><th>Due</th></tr></thead><tbody>${
+    data.map(r => `<tr><td><strong>${r.Item||''}</strong></td><td>${tagBadge(r.Status)}</td><td style="font-size:12px">${r.Owner||''}</td><td style="font-size:11px;color:var(--smoke)">${r.Due||''}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+async function renderShopping() {
+  const el = document.getElementById('shoppingTable');
+  const data = await fetchSheet('Shopping');
+  if (!data) { el.innerHTML = '<div class="empty-state"><div class="icon">🛒</div>Could not load — make sure the sheet tab is named "Shopping".</div>'; return; }
+  if (!data.length) { el.innerHTML = '<div class="empty-state"><div class="icon">🛍</div>No shopping items yet. Add items above!</div>'; return; }
+  el.innerHTML = `<table class="data-table"><thead><tr><th>Item</th><th>Store</th><th>Status</th></tr></thead><tbody>${
+    data.map(r => `<tr><td><strong>${r.Item||''}</strong></td><td style="font-size:12px;color:var(--smoke)">${r.Store||''}</td><td>${tagBadge(r.Done)}</td></tr>`).join('')
+  }</tbody></table>`;
+}
+
+async function loadSheet() {
+  document.getElementById('syncStatus').textContent = '⏳ Syncing…';
+  await Promise.all([renderNotes(), renderPlanning(), renderShopping()]);
+  document.getElementById('syncStatus').textContent = '✅ Synced ' + new Date().toLocaleTimeString();
+}
+
+// ───────────────────────────────────────────
+//  GOOGLE SHEETS WRITE (via Apps Script)
+// ───────────────────────────────────────────
+async function writeToSheet(sheet, row) {
+  if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+    alert('⚙️ Write setup needed!\n\nTo save data to Google Sheets, you need to deploy a Google Apps Script.\n\nClick "Show write setup instructions" below the Notes board for step-by-step instructions.');
+    return false;
+  }
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ sheet, row })
+    });
+    return true;
+  } catch(e) { alert('Write failed. Check your Apps Script deployment.'); return false; }
+}
+
+function today() { return new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }); }
+
+async function addRow(type) {
+  if (type === 'Notes') {
+    const title = document.getElementById('noteTitle').value.trim();
+    const body = document.getElementById('noteBody').value.trim();
+    const tag = document.getElementById('noteTag').value;
+    if (!title) { alert('Please enter a note title.'); return; }
+    const ok = await writeToSheet('Notes', [title, body, tag, today()]);
+    if (ok !== false) {
+      document.getElementById('noteTitle').value = '';
+      document.getElementById('noteBody').value = '';
+      setTimeout(loadSheet, 1500);
+    }
+  } else if (type === 'Planning') {
+    const item = document.getElementById('planItem').value.trim();
+    const status = document.getElementById('planStatus').value;
+    const owner = document.getElementById('planOwner').value.trim();
+    const due = document.getElementById('planDue').value;
+    if (!item) { alert('Please enter a planning item.'); return; }
+    const ok = await writeToSheet('Planning', [item, status, owner, due, today()]);
+    if (ok !== false) {
+      document.getElementById('planItem').value = '';
+      document.getElementById('planOwner').value = '';
+      document.getElementById('planDue').value = '';
+      setTimeout(loadSheet, 1500);
+    }
+  } else if (type === 'Shopping') {
+    const item = document.getElementById('shopItem').value.trim();
+    const store = document.getElementById('shopStore').value.trim();
+    const done = document.getElementById('shopDone').value;
+    if (!item) { alert('Please enter an item.'); return; }
+    const ok = await writeToSheet('Shopping', [item, store, done, today()]);
+    if (ok !== false) {
+      document.getElementById('shopItem').value = '';
+      document.getElementById('shopStore').value = '';
+      setTimeout(loadSheet, 1500);
+    }
+  }
+}
+
+// ───────────────────────────────────────────
+//  INIT
+// ───────────────────────────────────────────
+buildPacking();
+loadSheet();
+</script>
+</body>
+</html>
